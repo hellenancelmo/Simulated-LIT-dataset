@@ -1,0 +1,181 @@
+% Code Written by Hellen C Ancelmo 
+% Universidade Tecnológica Federal do Paraná
+% E-Mail: hellen@alunos.utfpr.edu.br
+
+
+% ANCELMO, H. C. ; MULINARI, B. M. ; POTTKER, F. ; LAZZARETTI, ANDRÉ EUGÊNIO ; 
+% OROSKI, E. ; BAZZO, T. ; LIMA, C. R. E. ; LINHARES, R. R. ; RENAUX, D. P. B. ; 
+% GAMBA, A. . A New Simulated Database for Classification Comparison in Power 
+% Signature Analysis. In: 20th International Conference on Intelligent Systems 
+% Applications to Power Systems, 2019, New Delhi. 20th International Conference 
+% on Intelligent Systems Applications to Power Systems, 2019.
+
+clear all
+close all
+warning off
+clc
+
+
+%% ---------------------Parameters--------------------- %%
+
+% Universal Motor
+load('parametros_motor')
+
+wmo_1 = 1500*(2*pi)/60; 
+wmo_2 = 1200*(2*pi)/60; 
+wmo_3 = 1000*(2*pi)/60;
+wmo_4 = 800*(2*pi)/60; 
+
+% Full Brigde
+C21 = 100e-6;
+R21 = 2e3;
+C22 = 100e-6;
+R22 = 1e3;
+C23 = 220e-6;
+R23 = 500;
+C24 = 330e-6;
+R24 = 300;
+
+% Resistor
+R31 = 2.5;
+R32 = 5;
+R33 = 8;
+R34 = 10;
+
+% Resistor and Inductor
+R41 = 10;
+L41 = 10e-3;
+R42 = 20;
+L42 = 10e-3;
+R43 = 30;
+L43 = 10e-3;
+R44 = 30;
+L44 = 100e-3;
+
+% Thyristor R
+R51 = 10;
+R52 = 12;
+R53 = 15;
+R54 = 20;
+Valpha5 = 60;
+
+% Thyristor RL
+R61 = 10;
+L61 = 1e-3;
+R62 = 5;
+L62 = 1e-3;
+R63 = 30;
+L63 = 1e-3;
+R64 = 105;
+L64 = 1e-3;
+Valpha6 = 60;
+
+% Diode R
+R71 = 5;
+R72 = 10;
+R73 = 20;
+R74 = 50;
+
+%% ---------------------Simulink Blocks--------------------- %%
+
+simu_blocks = ["Motor_1" "Motor_2" "Motor_3" "Motor_4" "Brigde_1" "Brigde_2" "Brigde_3" "Brigde_4" "Circuit_R_1" "Circuit_R_2" "Circuit_R_3" "Circuit_R_4" ...
+         "Circuit_RL_1" "Circuit_RL_2" "Circuit_RL_3" "Circuit_RL_4" "Rectifier_R_1" "Rectifier_R_2" "Rectifier_R_3" "Rectifier_R_4"...
+         "Rectifier_RL_1" "Rectifier_RL_2" "Rectifier_RL_3" "Rectifier_RL_4" "Diodo_1" "Diodo_2" "Diodo_3" "Diodo_4"];
+
+
+current_label = ["motor_current_1" "motor_current_2" "motor_current_3" "motor_current_4" "corrente_ponte_1" "corrente_ponte_2" "corrente_ponte_3'" "corrente_ponte_4" ...
+                  "r_current_1" "r_current_2" "r_current_3" "r_current_4" "rl_current_1" "rl_current_2" "rl_current_3" "rl_current_4" ...
+                  "thysristor_r_current_1" "thysristor_r_current_2" "thysristor_r_current_3" "thysristor_r_current_4" ...
+                  "thysristor_rl_current_1" "thysristor_rl_current_2" "thysristor_rl_current_3" "thysristor_rl_current_4"...
+                  "diode_current_1" "diode_current_2" "diode_current_3" "diode_current_4"];
+
+                
+voltage_label = ["motor_voltage_1" "motor_voltage_2" "motor_voltage_3" "motor_voltage_4" "bridge_voltage_1" "bridge_voltage_2" "bridge_voltage_3" "bridge_voltage_4" ...
+                "voltage_r_1" "voltage_r_2" "voltage_r_3" "voltage_r_4" "voltage_rl_1" "voltage_rl_2" "voltage_rl_3" "voltage_rl_4"...
+                "thyristor_r_voltage_1" "thyristor_r_voltage_2" "thyristor_r_voltage_3" "thyristor_r_voltage_4" ...
+                "thyristor_rl_voltage_1" "thyristor_rl_voltage_2" "thyristor_rl_voltage_3" "thyristor_rl_voltage_4" ...
+                "diode_voltage_1" "diode_voltage_2" "diode_voltage_3" "diode_voltage_4"];
+                
+load_blocks = ["UNIVERSAL_MOTOR_1" "UNIVERSAL_MOTOR_2" "UNIVERSAL_MOTOR_3" "UNIVERSAL_MOTOR_4" "FULL_BRIDGE_1" "FULL_BRIDGE_2" ...
+                "FULL_BRIDGE_3" "FULL_BRIDGE_4" "R_1" "R_2" "R_3" "R_4" "RL_1" "RL_2" "RL_3" "RL_4" "THYRISTOR_R_1" "THYRISTOR_R_2" ...
+                "THYRISTOR_R_3" "THYRISTOR_R_4" "THYRISTOR_RL_1" "THYRISTOR_RL_2" "THYRISTOR_RL_3" "THYRISTOR_RL_4" "DIODE_1" ...
+                "DIODE_2" "DIODE_3" "DIODE_4"];
+
+on_off_blocks = ["ON_OFF_1" "ON_OFF_2" "ON_OFF_3" "ON_OFF_4" "ON_OFF_5" "ON_OFF_6" "ON_OFF_7" "ON_OFF_8" "ON_OFF_9" "ON_OFF_10" ...
+                "ON_OFF_11" "ON_OFF_12" "ON_OFF_13" "ON_OFF_14" "ON_OFF_15" "ON_OFF_16" "ON_OFF_17" "ON_OFF_18" "ON_OFF_19" "ON_OFF_20" ...
+                "ON_OFF_21" "ON_OFF_22" "ON_OFF_23" "ON_OFF_24" "ON_OFF_25" "ON_OFF_26" "ON_OFF_27" "ON_OFF_28"];
+
+
+%% ---------------------Database Type--------------------- %%
+
+% % Ideal Scenario
+simulation = 'Sim_Ideal';
+
+% % Scenario with leakege inductance
+% simulation = 'Sim_Induct';
+
+% Scenario with leakege inductance and harmonic 
+% simulation = 'Sim_Induct_Harmon';
+
+
+%% ---------------------Blocks of Simulink--------------------- %%
+
+for i=1:28
+set_param(sprintf('%s/%s',simulation,load_blocks(i)),'commented','on'); 
+set_param(sprintf('%s/%s',simulation,on_off_blocks(i)),'commented','on'); 
+end    
+
+%% ---------------------Database Parameters--------------------- %%
+
+num_loads = 28;
+sim_on=50*ones(1,num_loads);
+sim_off=sim_on;  
+
+cycle = 1/60;
+trigger = 1/240;
+decimation = 65;
+
+                
+%% ---------------------One Load in the same waveform--------------------- %%
+
+sim_time = 2.5;
+
+run('individual_load')
+
+%% ---------------------Two Loads in the same waveform--------------------- %%
+% sim_time = 6;
+% 
+% run('double_load')
+
+
+%% ---------------------Three Loads in the same waveform--------------------- %%
+
+% sim_time = 10;
+% 
+% run('triple_load')
+%% ---------------------Four Loads in the same waveforms--------------------- %%
+% 
+% sim_time = 13;
+% 
+% run('fourfold_load')
+%% ---------------------Five Loads in the same waveform--------------------- %%
+
+% % sim_time = 16;
+% % 
+% % run('quintuple_load')
+
+%% ---------------------Six Loads in the same waveform--------------------- %%
+% 
+% sim_time = 20;
+% 
+% run('sixfold_load')
+%% ---------------------Seven Loads in the same waveform--------------------- %%
+sim_time = 25;
+
+run('sevenfold_load')
+
+%% --------------------- Blocks of Simulink --------------------- %%
+for i=1:28
+set_param(sprintf('%s/%s',simulation,load_blocks(i)),'commented','off'); 
+set_param(sprintf('%s/%s',simulation, on_off_blocks(i)),'commented','off'); 
+end 
