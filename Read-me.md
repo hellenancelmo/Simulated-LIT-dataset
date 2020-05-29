@@ -21,18 +21,18 @@ H. C. Ancelmo et al., "A New Simulated Database for Classification Comparison in
 
 # Algorithms
 * main_simu -> The main algorithm, in this file all parameters of circuits and motor are loaded. 
-Parameters
+- Parameters
     - You can change the values of resistor, inductor and capacitor of each circuit.
-Simulink Blocks
+- Simulink Blocks
     - Each block of simulink scenario is loaded.
     - The voltage and current labels are defined.
-Database Type
+- Database Type
     - You can choose the scenario of simulation: Ideal, with leakege inductance and with leakege inductance and harmonic. Just uncomment the chosen scenario.
-Blocks of Simulink
+- Blocks of Simulink
       - Comment and uncomment blocks of simulink in order to make simulation efficient.
-Database Parameters
+- Database Parameters
       - You can change the cycle, step trigger and decimation rate.
-Combination Loads
+- Combination Loads
       - You can choose the combination loads in the same waveform. Just uncommento the chosen comination.
       - You can change de total time of simulation in sim_time
       
