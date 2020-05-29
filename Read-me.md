@@ -20,7 +20,7 @@ H. C. Ancelmo et al., "A New Simulated Database for Classification Comparison in
 * 50_comb_7_loads.mat -> contains 50 combination laods to 7 loads in the same waveform
 
 # Algorithms
-* main_simu -> The main algorithm, in this file all parameters of circuits and motor are loaded. 
+* main_simu.m -> The main algorithm, in this file all parameters of circuits and motor are loaded. 
     - Parameters
         - You can change the values of resistor, inductor and capacitor of each circuit.
     - Simulink Blocks
@@ -36,10 +36,10 @@ H. C. Ancelmo et al., "A New Simulated Database for Classification Comparison in
       - You can choose the combination loads in the same waveform. Just uncommento the chosen comination.
       - You can change de total time of simulation in sim_time
       
-* individual_load -> algorithm that performs and save all individual loads.
-* dobule_laod -> algorithm that performs all possible combinations of loads with 2 loads in the same waveform using 30 combination triggers.
-* triple_load -> algorithm that performs 30 combinations of loadswith 3 loads in the same waveform using 5 combination triggers.
-* fourfold_load -> algorithm that performs 30 combinations of loads with 4 loads in the same waveform using 5 combination triggers.
-* quintuple_load -> algorithm that performs 30 combinations of loads with 5 loads in the same waveform using 5 combination triggers.
-* sixfold_load -> algorithm that performs 50 combinations of loads with 6 loads in the same waveform using 10 combination triggers.
-* sevenfold_load -> algorithm that performs 50 combinations of loads with 7 loads in the same waveform using 10 combination triggers.
+* individual_load.m -> algorithm that performs and save all individual loads.
+* dobule_laod.m -> algorithm that performs all possible combinations of loads with 2 loads in the same waveform using 30 combination triggers.
+* triple_load.m -> algorithm that performs 30 combinations of loadswith 3 loads in the same waveform using 5 combination triggers.
+* fourfold_load.m -> algorithm that performs 30 combinations of loads with 4 loads in the same waveform using 5 combination triggers.
+* quintuple_load.m -> algorithm that performs 30 combinations of loads with 5 loads in the same waveform using 5 combination triggers.
+* sixfold_load.m -> algorithm that performs 50 combinations of loads with 6 loads in the same waveform using 10 combination triggers.
+* sevenfold_load.m -> algorithm that performs 50 combinations of loads with 7 loads in the same waveform using 10 combination triggers.
