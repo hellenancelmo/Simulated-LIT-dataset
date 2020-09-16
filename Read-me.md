@@ -4,7 +4,7 @@ The codes in this repository are explained in these papers:
 
 H. C. Ancelmo et al., "A New Simulated Database for Classification Comparison in Power Signature Analysis," 2019 20th International Conference on Intelligent System Application to Power Systems (ISAP), New Delhi, India, 2019, pp. 1-7, doi: 10.1109/ISAP48318.2019.9065943
 
-- D. P. B. Reanaux et al., "Designing a Dataset for Non-intrusive Load Monitoring," Submitted to IEEE Access.
+- D. P. B. Reanaux et al., "Designing a Dataset for Non-intrusive Load Monitoring," Submitted to IEEE Energies.
 
 
 # Files
